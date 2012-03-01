@@ -1,12 +1,11 @@
 {
     "author": "pandaa",
-    "name": "npm-test",
-    "description": "NPM test module",
-    "version": "0.0.0",
+    "name": "bananabomb",
+    "description": "Provides some REST-API-clients for Twitter, Facebook, etc. in node.js",
+    "version": "0.1.0",
     "repository": {
-        "url": ""
+        "url": "https://github.com/pandaa/bananabomb"
     },
-    "private": true,
     "main": "./lib/index.js",
     "scripts": {
         "test": "mocha --reporter spec"
@@ -15,7 +14,12 @@
         "node": "0.6.x"
     },
     "dependencies": {
-        "expect.js" : "0.x"
+        "underscore": ">= 1.3.1",
+        "everyauth": ">= 0.2.30",
+        "express":  ">= 2.5.8"
     },
-    "devDependencies": {}
+    "devDependencies": {
+        "mocha": ">= 0.11.0",
+        "expect.js": ">= 0.1.1"
+    }
 }
