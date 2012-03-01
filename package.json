@@ -2,7 +2,7 @@
     "author": "pandaa",
     "name": "bananabomb",
     "description": "Provides some REST-API-clients for Twitter, Facebook, etc. in node.js",
-    "version": "0.1.0",
+    "version": "0.0.1",
     "repository": {
         "url": "https://github.com/pandaa/bananabomb"
     },
