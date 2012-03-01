@@ -2,11 +2,11 @@
 
 var expect                      = require("expect.js"),
     _                           = require("underscore"),
-    OAuthTools                  = require("../app/lib/OAuthTools.class"),
+    OAuthTools                  = require("../lib/OAuthTools.class"),
     oAuthTools                  = new OAuthTools(),
     twitterDocuReference        = require("./mocks/twitterDocuReference.mock"),
     twitterDeleteTweetReference = require("./mocks/twitterDeleteTweetReference.mock"),
-    TwitterSignature            = require("../app/lib/twitter/TwitterSignature.class");
+    TwitterSignature            = require("../lib/twitter/TwitterSignature.class");
 
 describe("TwitterSignature", function () {
 

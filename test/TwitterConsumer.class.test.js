@@ -1,7 +1,7 @@
 "use strict"; // run code in ES5 strict mode
 
 var expect = require("expect.js"),
-    TwitterConsumer = require("../app/lib/twitter/TwitterConsumer.class.js"),
+    TwitterConsumer = require("../lib/twitter/TwitterConsumer.class.js"),
     twitterConsumer,
     consumerKeyDummy = "abcdefghijklamn",
     consumerSecretDummy = "abcdefghijklamnabcdefghijklamn";

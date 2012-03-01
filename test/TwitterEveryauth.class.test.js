@@ -1,9 +1,9 @@
 var expect              = require("expect.js"),
     everyauth           = require("everyauth"),
     everyauthMock       = require("./mocks/everyauth.mock.js"),
-    TwitterConsumer     = require("../app/lib/twitter/TwitterConsumer.class.js"),
+    TwitterConsumer     = require("../lib/twitter/TwitterConsumer.class.js"),
     twitterConsumer     = new TwitterConsumer("cOnSuMeRKeYDuMMy", "cOnSuMeRkEYdUmmYcOnSuMeRkEYdUmmY"),
-    TwitterEveryauth    = require("../app/lib/twitter/TwitterEveryauth.class.js"),
+    TwitterEveryauth    = require("../lib/twitter/TwitterEveryauth.class.js"),
     twitterEveryauth;
 
 describe("TwitterEveryauth", function () {
@@ -13,11 +13,11 @@ describe("TwitterEveryauth", function () {
                 new TwitterEveryauth();
             }).to.throwException();
             expect(function () {
-                new TwitterEveryauth();
-            }).to.throwException(twitterEveryauth, undefined);
+                new TwitterEveryauth(twitterEveryauth, undefined);
+            }).to.throwException();
             expect(function () {
-                new TwitterEveryauth();
-            }).to.throwException(undefined, twitterConsumer);
+                new TwitterEveryauth(undefined, twitterConsumer);
+            }).to.throwException();
         });
         it("should be an instance of TwitterEveryauth", function () {
             expect(new TwitterEveryauth(everyauth, twitterConsumer)).to.be.a(TwitterEveryauth);

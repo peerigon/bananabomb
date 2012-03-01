@@ -2,7 +2,7 @@
 
 var expect                  = require("expect.js"),
     _                       = require("underscore"),
-    OAuthTools              = require("../app/lib/OAuthTools.class"),
+    OAuthTools              = require("../lib/OAuthTools.class"),
     oAuthTools,
     twitterData             = require("./mocks/twitterDocuReference.mock");
 

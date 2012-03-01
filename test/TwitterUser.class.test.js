@@ -1,7 +1,7 @@
 "use strict";
 
 var expect                  = require("expect.js"),
-    TwitterUser             = require("../app/lib/twitter/TwitterUser.class.js"),
+    TwitterUser             = require("../lib/twitter/TwitterUser.class.js"),
     twitterUser,
     twitterUserDataMock     = require("./mocks/twitterUserData.mock.js"),
     everyauthMock           = require("./mocks/everyauth.mock.js"),
