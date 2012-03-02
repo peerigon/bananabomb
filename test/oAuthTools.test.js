@@ -3,40 +3,40 @@
 var expect                  = require("expect.js"),
     _                       = require("underscore"),
     oAuthTools              = require("../lib/oAuthTools"),
-    twitterData             = require("./mocks/twitterDocuReference.mock");
+    twitterDocuReference    = require("./mocks/twitterDocuReference.mock");
 
 describe("OAuthTools", function () {
 
     describe("#encodeURIComponent", function () {
-        it("should be a equal value to encodedURIComponent", function () {
+        it("should be a equal value to twitterDocuReference.postBodyURIEncoded.status", function () {
             expect(
-                oAuthTools.encodeURIComponent(twitterData.postBody.status)
-            ).to.be.equal(twitterData.postBodyURIEncoded.status);
+                oAuthTools.encodeURIComponent(twitterDocuReference.postBody.status)
+            ).to.be.equal(twitterDocuReference.postBodyURIEncoded.status);
         });
     });
 
     describe("#decodeURIComponent", function () {
-        it("should be a equal value to decodedURIComponent", function () {
+        it("should be a equal value to twitterDocuReference.postBody.status", function () {
             expect(
-                oAuthTools.decodeURIComponent(twitterData.postBodyURIEncoded.status)
-            ).to.be.equal(twitterData.postBody.status);
+                oAuthTools.decodeURIComponent(twitterDocuReference.postBodyURIEncoded.status)
+            ).to.be.equal(twitterDocuReference.postBody.status);
         });
     });
 
     describe("#createHMACSignature", function () {
-        it("should be a equal value to referenceSignature", function() {
+        it("should be a equal value to twitterDocuReference.signature", function() {
             var signature = oAuthTools.createHMACSignature(
                 "sha1",
-                twitterData.signingKey,
-                twitterData.signatureBase,
+                twitterDocuReference.signingKey,
+                twitterDocuReference.signatureBase,
                 "base64"
             );
-            expect(signature).to.be.equal(twitterData.signature);
+            expect(signature).to.be.equal(twitterDocuReference.signature);
         });
     });
 
     describe("#createNonce", function() {
-        it("should always retun a different string which is alphanumeric.", function() {
+        it("should always retun a different string which is alphanumeric", function() {
             var nonce,
                 tmpNonce,
                 i;
