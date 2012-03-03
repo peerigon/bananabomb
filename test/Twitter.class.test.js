@@ -13,7 +13,7 @@ var _                           = require("underscore"),
     oAuthTools                  = require("../lib/oAuthTools"),
     TwitterSignature            = require("../lib/twitter/TwitterSignature.class"),
     twitterSignature            = new TwitterSignature(oAuthTools),
-    Twitter                     = require("../lib/twitter/Twitter.class"),
+    Twitter                     = require("../lib/twitter/TwitterRESTClient.class"),
     success                     = function () { /*do nothing*/ },
     error                       = function () { /*error*/ };
 

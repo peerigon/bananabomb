@@ -13,7 +13,7 @@ var twitter     = require("../").twitter,
  * At first you need to create an instance of TwitterConsumer which is a represantation of your consumer (app);
  * Provide your cosumerKey and consumerSecert which you'll get from Twitter after you have created an app.
  */
-var twitterConsumer = new twitter.TwitterConsumer(/*consumerKey, consumerSecret*/);
+var twitterConsumer = new twitter.Consumer(/*consumerKey, consumerSecret*/);
 
 /**
  * If you haven't already received all needed credentials you can use TwitterEveryauth to make your live easier.
@@ -21,13 +21,13 @@ var twitterConsumer = new twitter.TwitterConsumer(/*consumerKey, consumerSecret*
  * @see https://github.com/bnoguchi/everyauth
  * Keep in mind that you don't need to use everyauth.
  */
-var twitterEveryauth = new twitter.TwitterEveryauth(everyauth, twitterConsumer);
+var twitterEveryauth = new twitter.Everyauth(everyauth, twitterConsumer);
 
 /**
  * TwitterEveryauth is emitting "data" and "error" events.
  */
 twitterEveryauth.on("data", function (session, userAccessToken, userAccessTokenSecret, twitterUserData) {
-    var twitterUser = new twitter.TwitterUser(twitterUserData)
+    var twitterUser = new twitter.User(twitterUserData)
         .setAccessToken(userAccessToken)
         .setAccessTokenSecret(userAccessTokenSecret);
 
@@ -35,7 +35,7 @@ twitterEveryauth.on("data", function (session, userAccessToken, userAccessTokenS
      * Create the Twitter-REST-Client. It needs the user credentials and consumer credentials to authenticate the
      * requests.
      */
-    var tweetMachine = new twitter.Twitter(twitterUser, twitterConsumer);
+    var tweetMachine = new twitter.RESTClient(twitterUser, twitterConsumer);
 
     /**
      * Let's post a tweet now.
