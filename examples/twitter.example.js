@@ -12,21 +12,25 @@ var twitter     = require("../lib/index").twitter,
 /**
  * At first you need to create an instance of TwitterConsumer which is a represantation of your consumer (app);
  * Provide your cosumerKey and consumerSecert which you'll get from Twitter after you have created an app.
+ * @see https://dev.twitter.com/apps/
  */
-var twitterConsumer = new twitter.Consumer(/*consumerKey, consumerSecret*/);
+var twitterConsumer = new twitter.Consumer(/*consumerKey,*//*consumerSecret*/);
 
 /**
  * If you haven't already received all needed credentials you can use TwitterEveryauth to make your live easier.
  * For further information checkout the everyauth documentation.
  * @see https://github.com/bnoguchi/everyauth
  * Keep in mind that you don't need to use everyauth.
+ * Take also a closer look at:
+ * @see https://github.com/ciaranj/node-oauth
+ * @see http://passportjs.org/guide/twitter.html
  */
 var twitterEveryauth = new twitter.Everyauth(everyauth, twitterConsumer);
 
 /**
  * TwitterEveryauth is emitting "data" and "error" events.
  */
-twitterEveryauth.on("data", function (session, userAccessToken, userAccessTokenSecret, twitterUserData) {
+function onTwitterEveryauthData(session, userAccessToken, userAccessTokenSecret, twitterUserData) {
     var twitterUser = new twitter.User(twitterUserData)
         .setAccessToken(userAccessToken)
         .setAccessTokenSecret(userAccessTokenSecret);
@@ -43,38 +47,39 @@ twitterEveryauth.on("data", function (session, userAccessToken, userAccessTokenS
     tweetMachine.postTweet(
         function() { /*Error callback*/ },
         function() { /*Success callback*/ },
-        "Let's code object orientated!",
-        {"include_entities": true}
-    ) ;
-
-    tweetMachine.getTweets(
-        function() { /*Error callback*/ },
-        function() { /*Success callback*/ },
+        "Let's code object oriented!",
         {"include_entities": true}
     );
+}
 
-    tweetMachine.deleteTweet(
-        function() { /*Error callback*/ },
-        function() { /*Success callback*/ },
-        "19648962835626485936845683485", //tweedId
-        {"include_entities": true}
-    );
+function onTwitterEveryauthError(error) {
+    console.log(error);
+    //Some cool error handling
+}
 
-});
+twitterEveryauth.on("data", onTwitterEveryauthData).on("error", onTwitterEveryauthError);
 
-var consumer = express.createServer();
-consumer.configure(function () {
+/**
+ * Creating an express-based app-stack.
+ */
+var consumerApp = express.createServer();
+consumerApp.configure(function () {
     /**
-     * Your express or connect stack
+     * Put here your express/connect stack
      */
-    consumer.use(twitterEveryauth.getMiddleware());
+    consumerApp.use(express.bodyParser());
+    consumerApp.use(express.cookieParser());
+    consumerApp.use(express.session({secret: "aVerySecretSecret"}));
+    //Redirects to twitter if the request is targeting the following url: your.base.url/auth/twitter
+    consumerApp.use(twitterEveryauth.getMiddleware());
     /**
-    * Your express or connect stack
+    * Put here your express/connect stack
     */
+    consumerApp.use(express.errorHandler());
 });
 
-consumer.get('/', function (request, response) {
+consumerApp.get('/', function (request, response) {
     /*Your turn!*/
 });
 
-consumer.listen(/*Add here your consumers port.*/);
+consumerApp.listen(/*Add here your consumers port.*/);

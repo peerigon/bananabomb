@@ -23,7 +23,7 @@ describe("TwitterEveryauth", function () {
         });
     });
 
-    twitterEveryauth = new TwitterEveryauth(everyauth, twitterConsumer);
+    twitterEveryauth = new TwitterEveryauth(everyauthMock, twitterConsumer);
     describe("#getRedirectPath", function () {
         it("should be equal '/'", function () {
             expect(twitterEveryauth.getRedirectPath()).to.be.equal("/");
@@ -41,15 +41,8 @@ describe("TwitterEveryauth", function () {
     });
 
     describe("#getMiddleware", function () {
-        it("should be ok for all duck typing test.", function() {
-            var testDuck = twitterEveryauth.getMiddleware(),
-                realDuck = everyauth.middleware();
-            expect(typeof testDuck.stack).to.be.equal(typeof realDuck.stack);
-            expect(typeof testDuck.route).to.be.equal(typeof realDuck.route);
-            expect(typeof testDuck.allowHalfOpen).to.be.equal(typeof realDuck.allowHalfOpen);
-            expect(typeof testDuck._handle).to.be.equal(typeof realDuck._handle);
-            expect(typeof testDuck._events).to.be.equal(typeof realDuck._events);
-            expect(typeof testDuck.httpAllowHalfOpen).to.be.equal(typeof realDuck.httpAllowHalfOpen);
+        it("should be a function", function() {
+            expect(twitterEveryauth.getMiddleware).to.be.a(Function);
         });
     });
 
