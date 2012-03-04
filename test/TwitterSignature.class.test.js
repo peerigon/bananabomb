@@ -4,13 +4,14 @@ var expect                      = require("expect.js"),
     _                           = require("underscore"),
     twitterDocuReference        = require("./mocks/twitterDocuReference.mock"),
     twitterDeleteTweetReference = require("./mocks/twitterDeleteTweetReference.mock"),
+    oAUthTool                   = require("../lib/oAuthTools.js"),
     TwitterSignature            = require("../lib/twitter/TwitterSignature.class");
 
 describe("TwitterSignature", function () {
 
     describe("#__construct", function () {
         it("should be an instance of TwitterSignature", function () {
-            expect(new TwitterSignature()).to.be.an(TwitterSignature);
+            expect(new TwitterSignature(oAUthTool)).to.be.an(TwitterSignature);
         });
     });
 
@@ -19,7 +20,7 @@ describe("TwitterSignature", function () {
         var twitterSignature;
 
         before(function () {
-            twitterSignature = new TwitterSignature();
+            twitterSignature = new TwitterSignature(oAUthTool);
         });
 
         describe("#createSigningKey", function () {
@@ -60,7 +61,7 @@ describe("TwitterSignature", function () {
         var twitterSignature;
 
         before(function () {
-            twitterSignature = new TwitterSignature();
+            twitterSignature = new TwitterSignature(oAUthTool);
         });
 
         describe("#createSigningKey", function () {

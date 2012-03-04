@@ -5,7 +5,7 @@
  * Actually you don't need everyauth or express to use bananabomb.
  * But both modules are used here in the example to demonstrate how to get user credentials from Twitter.
  */
-var twitter     = require("../").twitter,
+var twitter     = require("../lib/index").twitter,
     everyauth   = require("everyauth"),
     express     = require("express");
 
