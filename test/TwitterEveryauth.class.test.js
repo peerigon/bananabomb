@@ -1,5 +1,5 @@
 var expect              = require("expect.js"),
-    everyauthMock       = require("./mocks/everyauth.mock.js"),
+    everyauthMock       = require("./mocks/everyauth.twitter.mock.js"),
     TwitterConsumer     = require("../lib/twitter/TwitterConsumer.class.js"),
     twitterConsumer     = new TwitterConsumer("cOnSuMeRKeYDuMMy", "cOnSuMeRkEYdUmmYcOnSuMeRkEYdUmmY"),
     TwitterEveryauth    = require("../lib/twitter/TwitterEveryauth.class.js"),

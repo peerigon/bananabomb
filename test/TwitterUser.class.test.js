@@ -4,7 +4,7 @@ var expect                  = require("expect.js"),
     TwitterUser             = require("../lib/twitter/TwitterUser.class.js"),
     twitterUser,
     twitterUserDataMock     = require("./mocks/twitterUserData.mock.js"),
-    everyauthMock           = require("./mocks/everyauth.mock.js"),
+    everyauthMock           = require("./mocks/everyauth.twitter.mock.js"),
     sessionDummy            = everyauthMock.twitter.findOrCreateUserCallbackParams.session,
     accessTokenDummy        = everyauthMock.twitter.findOrCreateUserCallbackParams.accessToken,
     accessTokenSecretDummy  = everyauthMock.twitter.findOrCreateUserCallbackParams.accessTokenSecret;
