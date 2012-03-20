@@ -8,11 +8,11 @@ describe("SMTPClient", function () {
 
     describe("#__construct", function () {
         it("should be a SMTPClient", function () {
-            expect(new SMTPClient).to.be.a(SMTPClient);
+            expect(new SMTPClient()).to.be.a(SMTPClient);
         })
     });
 
     describe("Setter", function () {
-        describe()
+        //describe()
     });
 });
