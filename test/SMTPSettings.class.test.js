@@ -93,7 +93,7 @@ describe("SMTPSettings", function () {
     });
 
     describe("#toConfigObject", function () {
-        it("should return an object with an eql structure", function () {
+        it("should return an object with a eql structure", function () {
             expect(smtpSettings.toConfigObject()).to.be.eql({
                 "service": service,
                 "host": host,
