@@ -50,10 +50,4 @@ function onSendAll(failed, send) {
 
 smtpClient
     .openSocket()
-    .sendEmails([
-        "paul.torka@roomieplanet.de",
-        "johannes.ewald@roomieplanet.de",
-        "michael.jaser@roomieplanet.de",
-        "matthias.jahn@roomieplanet.de"
-        ], onSendAll
-    );
+    .sendEmails([/*thousand of mails*/], onSendAll);
