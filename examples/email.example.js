@@ -3,17 +3,12 @@
 /**
  * Require all the stuff.
  */
-var SMTPSettings = require("../lib/email/SMTPSettings.class"),
-    smtpSettings,
-    EMail = require("../lib/email/EMail.class"),
-    eMail,
-    SMTPClient = require("../lib/email/SMTPClient.class"),
-    smtpClient;
+var email = require("../lib").email;
 
 /**
  * Create an instance of SMTPSettings and configure it.
  */
-smtpSettings = new SMTPSettings();
+var smtpSettings = new email.SMTPSettings();
 
 smtpSettings
     //.enableDebugMode() //Output some debbuging stuff via console.
@@ -26,7 +21,7 @@ smtpSettings
 /**
  * Create an instance of EMail and configure it.
  */
-eMail = new EMail();
+var eMail = new email.EMail();
 //eMail.setTo() There is no need to call this function manually.
 eMail
     .setFrom("spam@mast.er")
@@ -40,7 +35,7 @@ eMail
 /**
  * Create an instance of SMTPClient and send the mails.
  */
-smtpClient = new SMTPClient(smtpSettings, eMail);
+var smtpClient = new email.SMTPClient(smtpSettings, eMail);
 
 function onSendAll(failed, send) {
     console.log("Failed:", failed);
