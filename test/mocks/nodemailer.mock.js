@@ -2,16 +2,16 @@
 
 module.exports = {
     SMTPTransport: {
-        eMail: null,
-        sendMailCallback: null,
+        eMailObject: null,
+        error: null,
+        responseStatus: null,
          /**
-          * @param {EMail} eMail
+          * @param {Object} eMailObject
           * @param {Function} callback
           */
-         sendMail: function (eMail, callback) {
-             this.eMail = eMail;
-             this.sendMailCallback = callback;
-
+         sendMail: function (eMailObject, callback) {
+            this.eMailObject = eMailObject;
+            callback(this.error, this.responseStatus);
          },
         /**
          * Do nothing
@@ -24,7 +24,7 @@ module.exports = {
     smtpSettings: null,
     /**
      *
-     * @param {String} protocol
+     * @param {String} transportProtocol
      * @param {SMTPSettings} smtpSettings
      */
     createTransport: function (transportProtocol, smtpSettings) {
