@@ -82,7 +82,7 @@ describe("EMail", function () {
                 "replyTo": replyTo,
                 "subject": subject,
                 "html": message,
-                "generateTextFromHtml": true
+                "generateTextFromHTML": true
             });
         });
     });
