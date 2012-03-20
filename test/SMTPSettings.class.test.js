@@ -79,11 +79,13 @@ describe("SMTPSettings", function () {
             });
         });
 
+        /*
         describe("#autoConfigure", function () {
             it("should return a refrence to its instance", function () {
                 expect(smtpSettings.autoConfigure("Gmail")).to.be.equal(smtpSettings);
             });
         });
+        */
 
         describe("#enableDebugMode", function () {
             it("should return a reference to its instance", function () {
@@ -95,7 +97,7 @@ describe("SMTPSettings", function () {
     describe("#toConfigObject", function () {
         it("should return an object with a eql structure", function () {
             expect(smtpSettings.toConfigObject()).to.be.eql({
-                "service": service,
+                //"service": service,
                 "host": host,
                 "port": port,
                 "secureConnection": useSecureConnection,
