@@ -81,8 +81,7 @@ describe("EMail", function () {
                 "bcc": bcc,
                 "replyTo": replyTo,
                 "subject": subject,
-                "html": message,
-                "generateTextFromHTML": true
+                "html": message
             });
         });
     });
