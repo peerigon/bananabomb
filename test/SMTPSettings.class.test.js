@@ -5,7 +5,13 @@ var expect          = require("expect.js"),
     smtpSettings,
     host,
     port,
-    name;
+    clientServerName,
+    userName,
+    password,
+    maxConnections,
+    service,
+    useSecureConnection,
+    isDebugMode;
 
 describe("SMTPSettings", function () {
 
@@ -15,26 +21,26 @@ describe("SMTPSettings", function () {
         });
     });
 
-    describe("Getters & Setters", function () {
+    before(function () {
+        smtpSettings = new SMTPSettings();
+        host = "smtp.servide.somewhere";
+        port = 587;
+        clientServerName = "DummySMTPServer";
+        userName = "DummyUserName";
+        password = "AVerySecretPassword";
+        maxConnections = 5;
+        service = "Gmail";
+        useSecureConnection = true;
+        isDebugMode = true;
+    });
 
-        before(function () {
-            smtpSettings    = new SMTPSettings();
-            host            = "smtp.servide.somewhre";
-            port            = 587;
-            name            = "DummySMTPServer";
-        });
-
+    describe("Setter", function () {
         describe("#setHost", function () {
             it("should return a reference to its instance", function () {
                 expect(smtpSettings.setHost(host)).to.be.equal(smtpSettings);
             });
         });
 
-        describe("#getHost", function () {
-            it("should retrun a equal value to " + host, function () {
-                expect(smtpSettings.getHost()).to.be.equal(host);
-            });
-        });
 
         describe("#setPort", function () {
             it("should return a reference to its instance", function () {
@@ -42,22 +48,66 @@ describe("SMTPSettings", function () {
             });
         });
 
-        describe("#getPort", function () {
-            it("should be a equal valu to " + port, function () {
-                expect(smtpSettings.getPort()).to.be.equal(port);
-            });
-        });
 
-        describe("#setName", function () {
+        describe("#setClientServerName", function () {
             it("should return a reference to its instance", function () {
-                expect(smtpSettings.setName(name)).to.be.equal(smtpSettings);
+                expect(smtpSettings.setClientServerName(clientServerName)).to.be.equal(smtpSettings);
             });
         });
 
-        describe("#getName", function () {
-            it("should be a equal valu to " + name, function () {
-                expect(smtpSettings.getName()).to.be.equal(name);
+        describe("#setUserName", function () {
+            it("should return a reference to its instance", function () {
+                expect(smtpSettings.setUserName(userName)).to.be.equal(smtpSettings);
+            });
+        });
+
+        describe("#setPassword", function () {
+            it("should return a reference to its instance", function () {
+                expect(smtpSettings.setPassword(password)).to.be.equal(smtpSettings);
+            });
+        });
+
+        describe("#enableSecureConnect", function () {
+            it("should return a reference to its instance", function () {
+                expect(smtpSettings.enableSecureConnection()).to.be.equal(smtpSettings);
+            });
+        });
+
+        describe("#setMaxConnections", function () {
+            it("should return a reference to its instance", function () {
+                expect(smtpSettings.setMaxConnections(maxConnections)).to.be.equal(smtpSettings);
+            });
+        });
+
+        describe("#autoConfigure", function () {
+            it("should return a refrence to its instance", function () {
+                expect(smtpSettings.autoConfigure("Gmail")).to.be.equal(smtpSettings);
+            });
+        });
+
+        describe("#enableDebugMode", function () {
+            it("should return a reference to its instance", function () {
+                expect(smtpSettings.enableDebugMode()).to.be.equal(smtpSettings);
             });
         });
     });
+
+    describe("#toConfigObject", function () {
+        it("should return an object with an eql structure", function () {
+            expect(smtpSettings.toConfigObject()).to.be.eql({
+                "service": service,
+                "host": host,
+                "port": port,
+                "secureConnection": useSecureConnection,
+                "name": clientServerName,
+                "auth": {
+                    "user": userName,
+                    "pass": password
+                },
+                "debug": isDebugMode,
+                "maxConnections": maxConnections
+            });
+        });
+    });
+
 });
