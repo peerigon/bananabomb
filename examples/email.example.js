@@ -45,4 +45,4 @@ function onSendAll(failed, send) {
 
 smtpClient
     .openSocket()
-    .sendMmails([/*thousand of mails*/], onSendAll);
+    .sendMails([/*thousand of mails*/], onSendAll);
