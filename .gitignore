@@ -1,2 +1,3 @@
 # ignore dependecies
 node_modules
+/nbproject/private/
