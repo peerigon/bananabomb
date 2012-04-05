@@ -35,24 +35,6 @@ describe("FacebookUser", function () {
         });
     });
     
-    describe("#getName", function () {
-        it("should return an name equal to facebookUserDataMock.name", function () {
-            expect(facebookUser.getName()).to.be.equal(facebookUserDataMock.name);
-        });
-    });
-
-    describe("#getEmail", function () {
-        it("should return an email equal to facebookUserDataMock.email", function () {
-            expect(facebookUser.getEmail()).to.be.equal(facebookUserDataMock.email);
-        });
-    });
-    
-    describe("#getFirstName", function () {
-        it("should return an first_name equal to facebookUserDataMock.first_name", function () {
-            expect(facebookUser.getFirstName()).to.be.equal(facebookUserDataMock.first_name);
-        });
-    });
-    
     describe("#setSession", function () {
         it("should return a reference to a facebookUser", function () {
             expect(facebookUser.setSession(sessionDummy)).to.be.equal(facebookUser);
