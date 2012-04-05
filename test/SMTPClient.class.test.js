@@ -9,9 +9,9 @@ var _ = require("underscore"),
     smtpSettings,
     EMail = require("../lib/email/EMail.class.js"),
     eMail,
-    referenceProtocol,
-    emailAddress,
-    emailAddresses,
+    referenceProtocol = "SMTP",
+    emailAddress = "one@one.com",
+    emailAddresses = [emailAddress, "two@two.com", "three@three.com", emailAddress],
     onSendAll;
 
 describe("SMTPClient", function () {
@@ -37,10 +37,6 @@ describe("SMTPClient", function () {
 
     before(function () {
         smtpClient = new SMTPClient(smtpSettings, eMail, nodemailerMock);
-        referenceProtocol = "SMTP";
-        emailAddress = "one@one.com";
-        emailAddresses = [emailAddress, "two@two.com", "three@three.com"];
-        onSendAll = function () { /* Do nothing */};
     });
 
     describe("#openSocket", function () {
@@ -58,7 +54,7 @@ describe("SMTPClient", function () {
     describe("#sendMails", function () {
         it("should return a reference to its instance", function () {
             expect(
-                smtpClient.sendMails(emailAddresses, onSendAll)
+                smtpClient.sendMails(emailAddresses, function () {/* do nothing*/})
             ).to.be.equal(smtpClient);
         });
         it("should be an eql structured object", function () {
@@ -67,13 +63,13 @@ describe("SMTPClient", function () {
 
         describe("error case", function () {
             before(function() {
-                nodemailerMock.SMTPTransport.error = true; //force error
+                nodemailerMock.SMTPTransport.error = new Error(); //force error
                 nodemailerMock.SMTPTransport.responseStatus = null;
             });
 
-            it("should have 3 error cases", function (done) {
+            it("should have " + emailAddresses.length + " error cases", function (done) {
                 onSendAll = function(failed, sent) {
-                    expect(_(failed).toArray().length).to.be.equal(emailAddresses.length);
+                    expect(failed.length).to.be.equal(emailAddresses.length);
                     done();
                 };
 
@@ -82,7 +78,7 @@ describe("SMTPClient", function () {
 
             it("should have 0 sent cases", function (done) {
                 onSendAll = function(failed, sent) {
-                    expect(_(sent).toArray().length).to.be.equal(0);
+                    expect(sent.length).to.be.equal(0);
                     done();
                 };
 
@@ -96,9 +92,9 @@ describe("SMTPClient", function () {
                 nodemailerMock.SMTPTransport.responseStatus = true; //force success
             });
 
-            it("should have 3 sent cases", function (done) {
+            it("should have " + emailAddresses.length + " sent cases", function (done) {
                 onSendAll = function(failed, sent) {
-                    expect(_(sent).toArray().length).to.be.equal(3);
+                    expect(sent.length).to.be.equal(emailAddresses.length);
                     done();
                 };
 
@@ -107,7 +103,7 @@ describe("SMTPClient", function () {
 
             it("should have 0 error cases", function (done) {
                 onSendAll = function(failed, sent) {
-                    expect(_(failed).toArray().length).to.be.equal(0);
+                    expect(failed.length).to.be.equal(0);
                     done();
                 };
 
