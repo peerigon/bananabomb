@@ -3,7 +3,7 @@
 var _                       = require("underscore"),
     expect                  = require("expect.js"),
     FacebookUser            = require("../lib/facebook/FacebookUser.class"),
-    Facebook                = require("../lib/facebook/FacebookGraphApi.class"),
+    Facebook                = require("../lib/facebook/FacebookGraphAPI.class"),
     FacebookConsumer        = require("../lib/facebook/FacebookConsumer.class"),
     facebookDocuReference   = require("./mocks/facebookDocuReference.mock"),
     facebookUserDataMock    = require("./mocks/facebookUserData.mock"),
