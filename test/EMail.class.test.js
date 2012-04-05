@@ -59,7 +59,7 @@ describe("EMail", function () {
 
         describe("#setHeaders", function () {
             it("should return a reference to its instance", function () {
-                expect(eMail.setAdditionalHeaders(headers)).to.be.equal(eMail);
+                expect(eMail.setHeaders(headers)).to.be.equal(eMail);
             });
         });
 
