@@ -5,6 +5,7 @@ var expect  = require("expect.js"),
     to,
     cc,
     bcc,
+    headers,
     replyTo,
     subject,
     message;
@@ -23,6 +24,9 @@ describe("EMail", function () {
         to = "some@bo.dy";
         cc = "some@bodyel.se";
         bcc = "somebody@mysterio.us";
+        headers = {
+            "Precedence": "bulk"
+        };
         replyTo = to;
         subject = "Test Test Test";
         message = "<h1>Hey I'm so important</h1><p>Blah Blah Blub. Foo bar, foo bar ... .</p>";
@@ -36,25 +40,31 @@ describe("EMail", function () {
         });
 
         describe("#setTo", function () {
-            it("should return a refernec to its instance", function () {
+            it("should return a refernce to its instance", function () {
                 expect(eMail.setTo(to)).to.be.equal(eMail);
             });
         });
 
         describe("#setCC", function () {
-            it("should return a refernec to its instance", function () {
+            it("should return a refernce to its instance", function () {
                 expect(eMail.setCC(cc)).to.be.equal(eMail);
             });
         });
 
         describe("#setBCC", function () {
-            it("should return a refernec to its instance", function () {
+            it("should return a refernce to its instance", function () {
                 expect(eMail.setBCC(bcc)).to.be.equal(eMail);
             });
         });
 
+        describe("#setHeaders", function () {
+            it("should return a reference to its instance", function () {
+                expect(eMail.setAdditionalHeaders(headers)).to.be.equal(eMail);
+            });
+        });
+
         describe("#setReplyTo", function () {
-            it("should return a refernec to its instance", function () {
+            it("should return a refernce to its instance", function () {
                 expect(eMail.setReplyTo(replyTo)).to.be.equal(eMail);
             });
         });
@@ -79,6 +89,7 @@ describe("EMail", function () {
                 "to": to,
                 "cc": cc,
                 "bcc": bcc,
+                "headers": headers,
                 "replyTo": replyTo,
                 "subject": subject,
                 "html": message
