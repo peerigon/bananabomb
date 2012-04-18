@@ -1,142 +1,158 @@
 "use strict";
-//
-//var facebook        = require("../lib/index").facebook,
-//    everyauth       = require("everyauth"),
-//    express         = require("express"),
-//    uberspaceTools  = require('./uberspaceTools'),
-//    error,
-//    success,
-//    status;
-//
-//var facebookConsumer = new facebook.Consumer(155206961266142, '3ff722ab6ed73b55ad6f918ffbaff3a7');
-//var facebookEveryauth = new facebook.Everyauth(everyauth, facebookConsumer);
-//
-//function onFacebookEveryauthData(session, userAccessToken, userAccessTokExtra, facebookUserData) {
-//    
-//    var facebookUser = new facebook.User({
-//  "id": "100003502070751",
-//  "name": "Matthias Ja",
-//  "first_name": "Matthias",
-//  "last_name": "Ja",
-//  "link": "http://www.facebook.com/profile.php?id=100003502070751",
-//  "gender": "male",
-//  "email": "fb@slackline-set.eu",
-//  "timezone": 2,
-//  "locale": "de_DE",
-//  "verified": true,
-//  "updated_time": "2012-02-22T12:44:36+0000",
-//  "type": "user"
-//})
-//        .setAccessToken("AAACNKOZCKZCd4BAIdTGjhZB4JrxSsvNG8fTUaEK87NiFv8xuBjmtkVpp46kuwghZB1YioVfVdvgR3Ck9UaaZC8tAN62kF2DcMUVsu3p6cHwZDZD")
-//        .setAccessTokExtra({ expires: '5183895' });
-//
-//    /**
-//     * Create the Twitter-REST-Client. It needs the user credentials and consumer credentials to authenticate the
-//     * requests.
-//     */
-//    var statusMachine = new facebook.GraphApi(facebookUser, facebookConsumer);
-// 
-//   /**
-//     * Let's post a tweet now.
-//     */
-////    statusMachine.postStatus(
-////        function() { /*Error callback*/ },
-////        function() { /*Success callback*/ },
-////        "Hello, Arjun. I like this new API."
-////    );
-//        
-//    statusMachine.getStatuses(
-//        function() { },
-//        function() { }
-//    )
-//        
-//    statusMachine.deleteStatus(
-//        function() { },
-//        function() { },
-//        142779165848818
-//    )
-//    
-//    return session;
-//}
-//
-//onFacebookEveryauthData();
+
+var express = require('express')
+, passport = require('passport')
+, util = require('util')
+, FacebookStrategy = require('passport-facebook').Strategy
+, facebook        = require("../lib/index").facebook
+, uberspaceTools  = require('./uberspaceTools');
+
+var FACEBOOK_APP_ID = "155206961266142"
+var FACEBOOK_APP_SECRET = "3ff722ab6ed73b55ad6f918ffbaff3a7";
 
 
-//
-//function onFacebookEveryauthError(error) {
-//    console.log(error);
-//    //Some cool error handling
-//}
-//
-//facebookEveryauth.on("data", onFacebookEveryauthData).on("error", onFacebookEveryauthError);
-//
-///**
-// * Creating an express-based app-stack.
-// */
-//var consumerApp = express.createServer();
-//consumerApp.configure(function () {
-//    /**
-//     * Put here your express/connect stack
-//     */
-//    consumerApp.use(uberspaceTools.rewriteHost());
-//    consumerApp.use(express.bodyParser());
-//    consumerApp.use(express.cookieParser());
-////    consumerApp.use(express.session({secret: "aVerySecretSecret"}));
-//    //Redirects to twitter if the request is targeting the following url: your.base.url/auth/twitter
-//    consumerApp.use(facebookEveryauth.getMiddleware());
-//    /**
-//    * Put here your express/connect stack
-//    */
-//    consumerApp.use(express.errorHandler());
-//});
-//
-//consumerApp.get('/', function (request, response) {
-//    response.send("Hello matthaias!");
-//    console.log(request);
-//    console.log(response);
-//    /*Your turn!*/
-//});
-//
-//consumerApp.listen(20005);
-
-
-
-var everyauth   = require('everyauth'),
-    express     = require('express'),
-    uberspaceTools = require('./uberspaceTools'),
-    app;
-
-everyauth.facebook
-    .appId(155206961266142)
-    .appSecret('3ff722ab6ed73b55ad6f918ffbaff3a7')
-    .handleAuthCallbackError( function (req, res) {
-        console.log(req, res);
-    })
-    .findOrCreateUser( function (session, accessToken, accessTokExtra, fbUserMetadata) {
-    // find or create user logic goes here
-    
-//    console.log(session, "\n");
-    console.log(accessToken, "\n");
-    console.log(accessTokExtra, "\n");
-    console.log(fbUserMetadata);
-    
-    return fbUserMetadata; 
-})
-    .redirectPath('/')
-    .scope('user_status,publish_stream,email');
- 
-
-app = express.createServer();
-app.configure(function () {
-   app.use(uberspaceTools.rewriteHost());
-   app.use(express.bodyParser());
-   app.use(express.cookieParser());
-   app.use(express.session({secret: 'whodunnit'}));
-   app.use(everyauth.middleware());
-   //app.router(routes);
-}).listen(20005);
-
-app.get("/", function(request,result) {
-    result.send("Hello matthaias!");
+// Passport session setup.
+// To support persistent login sessions, Passport needs to be able to
+// serialize users into and deserialize users out of the session. Typically,
+// this will be as simple as storing the user ID when serializing, and finding
+// the user by ID when deserializing. However, since this example does not
+// have a database of user records, the complete Facebook profile is serialized
+// and deserialized.
+passport.serializeUser(function(user, done) {
+    done(null, user);
 });
-    
+
+passport.deserializeUser(function(obj, done) {
+    done(null, obj);
+});
+
+
+// Use the FacebookStrategy within Passport.
+// Strategies in Passport require a `verify` function, which accept
+// credentials (in this case, an accessToken, refreshToken, and Facebook
+// profile), and invoke a callback with a user object.
+passport.use(new FacebookStrategy({
+    clientID: FACEBOOK_APP_ID,
+    clientSecret: FACEBOOK_APP_SECRET,
+    callbackURL: "http://pandaa.taurus.uberspace.de/matthaias/bananabomb/auth/facebook/callback"
+},
+function(accessToken, refreshToken, profile, done) {
+    // asynchronous verification, for effect...
+
+    process.nextTick(function () {
+
+        var statusMachine = new facebook.GraphAPI(profile.id, accessToken);
+ 
+        statusMachine.postStatus(
+            function() { /*Error callback*/ },
+            function() { /*Success callback*/ },
+            "Hello, Arjun. I like this new API."
+            );  
+                
+//        statusMachine.getStatuses(
+//            function() {},
+//            function() {}
+//        )
+        
+//        statusMachine.deleteStatus(
+//            function() { },
+//            function() { },
+//            157030864423648
+//        )
+        // To keep the example simple, the user's Facebook profile is returned to
+        // represent the logged-in user. In a typical application, you would want
+        // to associate the Facebook account with a user record in your database,
+        // and return that user instead.
+        return done(null, profile);
+    });
+}
+));
+
+
+
+
+var app = express.createServer();
+
+// configure Express
+app.configure(function() {
+    app.set('views', __dirname + '/views');
+    app.set('view engine', 'ejs');
+    app.use(express.logger());
+    app.use(express.cookieParser());
+    app.use(express.bodyParser());
+    app.use(express.methodOverride());
+    app.use(uberspaceTools.rewriteHost());
+    app.use(express.session({
+        secret: 'keyboard cat'
+    }));
+    // Initialize Passport! Also use passport.session() middleware, to support
+    // persistent login sessions (recommended).
+    app.use(passport.initialize());
+    //  app.use(passport.session());
+    app.use(app.router);
+//    app.use(express.static(__dirname + '/public'));
+});
+
+
+//app.get('/', function(req, res){
+//    res.render('index', {
+//        user: req.user
+//    });
+//});
+//
+//app.get('/account', ensureAuthenticated, function(req, res){
+//    res.render('account', {
+//        user: req.user
+//    });
+//});
+//
+//app.get('/login', function(req, res){
+//    res.render('login', {
+//        user: req.user
+//    });
+//});
+
+// GET /auth/facebook
+// Use passport.authenticate() as route middleware to authenticate the
+// request. The first step in Facebook authentication will involve
+// redirecting the user to facebook.com. After authorization, Facebook will
+// redirect the user back to this application at /auth/facebook/callback
+app.get('/auth/facebook',
+    passport.authenticate('facebook'),
+    function(req, res){
+    // The request will be redirected to Facebook for authentication, so this
+    // function will not be called.
+    });
+
+// GET /auth/facebook/callback
+// Use passport.authenticate() as route middleware to authenticate the
+// request. If authentication fails, the user will be redirected back to the
+// login page. Otherwise, the primary route function function will be called,
+// which, in this example, will redirect the user to the home page.
+app.get('/auth/facebook/callback',
+    passport.authenticate('facebook', {
+        failureRedirect: '/login'
+    }),
+    function(req, res) {
+        res.redirect('/');
+    });
+
+app.get('/logout', function(req, res){
+    req.logout();
+    res.redirect('/');
+});
+
+app.listen(20005);
+
+
+// Simple route middleware to ensure user is authenticated.
+// Use this route middleware on any resource that needs to be protected. If
+// the request is authenticated (typically via a persistent login session),
+// the request will proceed. Otherwise, the user will be redirected to the
+// login page.
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/login')
+}
