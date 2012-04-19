@@ -4,9 +4,7 @@ var _ = require("underscore"),
     expect = require("expect.js"),
     indexReference = {
         twitter: {
-            Consumer: require("../lib/twitter/TwitterConsumer.class.js"),
-            RESTClient: require("../lib/twitter/TwitterRESTClient.class.js"),
-            User: require("../lib/twitter/TwitterUser.class.js")
+            RESTClient: require("../lib/twitter/TwitterRESTClient.class.js")
         },
         email: {
            EMail: require("../lib/email/EMail.class.js"),
@@ -14,9 +12,7 @@ var _ = require("underscore"),
            SMTPClient: require("../lib/email/SMTPClient.class.js")
         },
         facebook: {
-            Consumer: require("../lib/facebook/FacebookConsumer.class.js"),
-            GraphAPI: require("../lib/facebook/FacebookGraphAPI.class.js"),
-            User: require("../lib/facebook/FacebookUser.class.js")
+            GraphAPI: require("../lib/facebook/FacebookGraphAPI.class.js")
         }
 
     },
