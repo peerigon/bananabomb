@@ -34,11 +34,11 @@ describe("Twitter", function () {
         });
 
         describe("#__construct", function () {
-            it("should throw an error without providing instances of TwitterUser, TwitterConsumer, TwitterSignature and OAuthsTools", function () {
+            it("should throw an error without providing instances of twitterUserAccessToken, twitterUserAccessTokenSecret, twitterConsumerKey, twitterConsumerSecret, TwitterSignature and OAuthsTools", function () {
                 expect(function() { new Twitter(); }).to.throwException();
             });
             it("should be an instance of Twitter", function() {
-                twitter = new Twitter(twitterUser, twitterConsumer, twitterSignature, oAuthTools, httpsMock);
+                twitter = new Twitter(twitterDocuReference.accessToken, twitterDocuReference.accessTokenSecret, twitterDocuReference.consumerKey, twitterDocuReference.consumerSecret, twitterSignature, oAuthTools, httpsMock);
                 expect(twitter).to.be.a(Twitter);
             });
         });
@@ -71,7 +71,7 @@ describe("Twitter", function () {
             oAuthToolsMock.createNonce = function () {
                 return twitterDocuReference.oAuthParams.oauth_nonce;
             };
-            twitter = new Twitter(twitterUser, twitterConsumer, twitterSignature, oAuthToolsMock, httpsMock);
+            twitter = new Twitter(twitterDocuReference.accessToken, twitterDocuReference.accessTokenSecret, twitterDocuReference.consumerKey, twitterDocuReference.consumerSecret, twitterSignature, oAuthToolsMock, httpsMock);
             twitter.postTweet(
                 error,
                 success,
@@ -122,7 +122,7 @@ describe("Twitter", function () {
                 oAuthToolsMock.createNonce = function () {
                     return twitterGetTweetsReference.oAuthParams.oauth_nonce;
                 };
-                twitter = new Twitter(twitterUser, twitterConsumer, twitterSignature, oAuthToolsMock, httpsMock);
+                twitter = new Twitter(twitterGetTweetsReference.accessToken, twitterGetTweetsReference.accessTokenSecret, twitterGetTweetsReference.consumerKey, twitterGetTweetsReference.consumerSecret, twitterSignature, oAuthToolsMock, httpsMock);
                 twitter.getTweets(
                     error,
                     success,
@@ -168,7 +168,7 @@ describe("Twitter", function () {
                 oAuthToolsMock.createNonce = function () {
                     return twitterPostTweetReference.oAuthParams.oauth_nonce;
                 };
-                twitter = new Twitter(twitterUser, twitterConsumer, twitterSignature, oAuthToolsMock, httpsMock);
+                twitter = new Twitter(twitterPostTweetReference.accessToken, twitterPostTweetReference.accessTokenSecret, twitterPostTweetReference.consumerKey, twitterPostTweetReference.consumerSecret, twitterSignature, oAuthToolsMock, httpsMock);
                 twitter.postTweet(
                     error,
                     success,
@@ -215,7 +215,7 @@ describe("Twitter", function () {
                     oAuthToolsMock.createNonce = function () {
                         return twitterDeleteTweetReference.oAuthParams.oauth_nonce;
                     };
-                    twitter = new Twitter(twitterUser, twitterConsumer, twitterSignature, oAuthToolsMock, httpsMock);
+                    twitter = new Twitter(twitterDeleteTweetReference.accessToken, twitterDeleteTweetReference.accessTokenSecret, twitterDeleteTweetReference.consumerKey, twitterDeleteTweetReference.consumerSecret, twitterSignature, oAuthToolsMock, httpsMock);
 
                 });
 
