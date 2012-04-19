@@ -4,8 +4,7 @@ var express = require('express'),
     passport = require('passport'),
     util = require('util'),
     FacebookStrategy = require('passport-facebook').Strategy,
-    facebook = require("../lib/index").facebook,
-    uberspaceTools  = require('./uberspaceTools');
+    facebook = require("../lib/index").facebook;
 
 var FACEBOOK_APP_ID = "--insert-facebook-app-id-here--"
 var FACEBOOK_APP_SECRET = "--insert-facebook-app-secret-here--";
@@ -34,7 +33,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new FacebookStrategy({
     clientID: FACEBOOK_APP_ID,
     clientSecret: FACEBOOK_APP_SECRET,
-    callbackURL: "http://pandaa.taurus.uberspace.de/matthaias/bananabomb/auth/facebook/callback"
+    callbackURL: "http://localhost:3000/auth/facebook/callback"
 },
 function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
@@ -78,7 +77,6 @@ app.configure(function() {
     app.use(express.cookieParser());
     app.use(express.bodyParser());
     app.use(express.methodOverride());
-    app.use(uberspaceTools.rewriteHost());
     app.use(express.session({
         secret: 'keyboard cat'
     }));
