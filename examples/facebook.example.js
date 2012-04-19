@@ -7,8 +7,8 @@ var express = require('express')
 , facebook        = require("../lib/index").facebook
 , uberspaceTools  = require('./uberspaceTools');
 
-var FACEBOOK_APP_ID = "155206961266142"
-var FACEBOOK_APP_SECRET = "3ff722ab6ed73b55ad6f918ffbaff3a7";
+var FACEBOOK_APP_ID = "--insert-facebook-app-id-here--"
+var FACEBOOK_APP_SECRET = "--insert-facebook-app-secret-here--";
 
 
 // Passport session setup.
