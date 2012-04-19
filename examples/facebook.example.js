@@ -1,11 +1,11 @@
 "use strict";
 
-var express = require('express')
-, passport = require('passport')
-, util = require('util')
-, FacebookStrategy = require('passport-facebook').Strategy
-, facebook        = require("../lib/index").facebook
-, uberspaceTools  = require('./uberspaceTools');
+var express = require('express'),
+    passport = require('passport'),
+    util = require('util'),
+    FacebookStrategy = require('passport-facebook').Strategy,
+    facebook = require("../lib/index").facebook,
+    uberspaceTools  = require('./uberspaceTools');
 
 var FACEBOOK_APP_ID = "--insert-facebook-app-id-here--"
 var FACEBOOK_APP_SECRET = "--insert-facebook-app-secret-here--";
@@ -43,11 +43,11 @@ function(accessToken, refreshToken, profile, done) {
 
         var statusMachine = new facebook.GraphAPI(profile.id, accessToken);
  
-        statusMachine.postStatus(
-            function() { /*Error callback*/ },
-            function() { /*Success callback*/ },
-            "Hello, Arjun. I like this new API."
-            );  
+//        statusMachine.postStatus(
+//            function() { /*Error callback*/ },
+//            function() { /*Success callback*/ },
+//            "Post this on my wall."
+//            );  
                 
 //        statusMachine.getStatuses(
 //            function() {},
@@ -57,7 +57,7 @@ function(accessToken, refreshToken, profile, done) {
 //        statusMachine.deleteStatus(
 //            function() { },
 //            function() { },
-//            157030864423648
+//            your status id
 //        )
         // To keep the example simple, the user's Facebook profile is returned to
         // represent the logged-in user. In a typical application, you would want
@@ -67,9 +67,6 @@ function(accessToken, refreshToken, profile, done) {
     });
 }
 ));
-
-
-
 
 var app = express.createServer();
 
@@ -94,11 +91,9 @@ app.configure(function() {
 });
 
 
-//app.get('/', function(req, res){
-//    res.render('index', {
-//        user: req.user
-//    });
-//});
+app.get('/', function(req, res){
+    res.send('hello world');
+});
 //
 //app.get('/account', ensureAuthenticated, function(req, res){
 //    res.render('account', {
