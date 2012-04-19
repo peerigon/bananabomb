@@ -8,8 +8,8 @@ var _                           = require("underscore"),
     twitterPostTweetReference   = require("./mocks/twitterPostTweetReference.mock"),
     twitterDeleteTweetReference = require("./mocks/twitterDeleteTweetReference.mock"),
     twitterUserDataMock         = require("./mocks/twitterUserData.mock"),
-    TwitterUser                 = require("../lib/twitter/TwitterUser.class"),
-    TwitterConsumer             = require("../lib/twitter/TwitterConsumer.class"),
+//    TwitterUser                 = require("../lib/twitter/TwitterUser.class"),
+//    TwitterConsumer             = require("../lib/twitter/TwitterConsumer.class"),
     oAuthTools                  = require("../lib/oAuthTools"),
     TwitterSignature            = require("../lib/twitter/TwitterSignature.class"),
     twitterSignature            = new TwitterSignature(oAuthTools),
@@ -26,11 +26,11 @@ describe("Twitter", function () {
             twitter;
 
         before(function () {
-            twitterUser     = new TwitterUser(twitterUserDataMock);
-            twitterUser
-                .setAccessToken(twitterDocuReference.accessToken)
-                .setAccessTokenSecret(twitterDocuReference.accessTokenSecret);
-            twitterConsumer = new TwitterConsumer(twitterDocuReference.consumerKey, twitterDocuReference.consumerSecret);
+//            twitterUser     = new TwitterUser(twitterUserDataMock);
+//            twitterUser
+//                .setAccessToken(twitterDocuReference.accessToken)
+//                .setAccessTokenSecret(twitterDocuReference.accessTokenSecret);
+//            twitterConsumer = new TwitterConsumer(twitterDocuReference.consumerKey, twitterDocuReference.consumerSecret);
         });
 
         describe("#__construct", function () {
@@ -59,11 +59,11 @@ describe("Twitter", function () {
             twitter;
 
         before(function () {
-            twitterUser = new TwitterUser(twitterUserDataMock);
-            twitterUser
-                .setAccessToken(twitterDocuReference.accessToken)
-                .setAccessTokenSecret(twitterDocuReference.accessTokenSecret);
-            twitterConsumer = new TwitterConsumer(twitterDocuReference.consumerKey, twitterDocuReference.consumerSecret);
+//            twitterUser = new TwitterUser(twitterUserDataMock);
+//            twitterUser
+//                .setAccessToken(twitterDocuReference.accessToken)
+//                .setAccessTokenSecret(twitterDocuReference.accessTokenSecret);
+//            twitterConsumer = new TwitterConsumer(twitterDocuReference.consumerKey, twitterDocuReference.consumerSecret);
             oAuthToolsMock = _.extend({}, oAuthTools);
             oAuthToolsMock.createTimestamp = function () {
                 return twitterDocuReference.timestamp;
@@ -110,11 +110,11 @@ describe("Twitter", function () {
                 httpsHeader;
 
             before(function() {
-                twitterUser     = new TwitterUser(twitterUserDataMock);
-                twitterUser
-                    .setAccessToken(twitterGetTweetsReference.accessToken)
-                    .setAccessTokenSecret(twitterGetTweetsReference.accessTokenSecret);
-                twitterConsumer = new TwitterConsumer(twitterGetTweetsReference.consumerKey, twitterGetTweetsReference.consumerSecret);
+//                twitterUser     = new TwitterUser(twitterUserDataMock);
+//                twitterUser
+//                    .setAccessToken(twitterGetTweetsReference.accessToken)
+//                    .setAccessTokenSecret(twitterGetTweetsReference.accessTokenSecret);
+//                twitterConsumer = new TwitterConsumer(twitterGetTweetsReference.consumerKey, twitterGetTweetsReference.consumerSecret);
                 oAuthToolsMock  = _.extend({}, oAuthTools);
                 oAuthToolsMock.createTimestamp = function () {
                     return twitterGetTweetsReference.timestamp;
@@ -156,11 +156,11 @@ describe("Twitter", function () {
                 httpsHeader;
 
             before(function() {
-                twitterUser     = new TwitterUser(twitterUserDataMock);
-                twitterUser
-                    .setAccessToken(twitterPostTweetReference.accessToken)
-                    .setAccessTokenSecret(twitterGetTweetsReference.accessTokenSecret);
-                twitterConsumer = new TwitterConsumer(twitterPostTweetReference.consumerKey, twitterPostTweetReference.consumerSecret);
+//                twitterUser     = new TwitterUser(twitterUserDataMock);
+//                twitterUser
+//                    .setAccessToken(twitterPostTweetReference.accessToken)
+//                    .setAccessTokenSecret(twitterGetTweetsReference.accessTokenSecret);
+//                twitterConsumer = new TwitterConsumer(twitterPostTweetReference.consumerKey, twitterPostTweetReference.consumerSecret);
                 oAuthToolsMock  = _.extend({}, oAuthTools);
                 oAuthToolsMock.createTimestamp = function () {
                     return twitterPostTweetReference.timestamp;
@@ -203,11 +203,11 @@ describe("Twitter", function () {
                     httpsHeader;
 
                 before(function() {
-                    twitterUser     = new TwitterUser(twitterUserDataMock);
-                    twitterUser
-                        .setAccessToken(twitterDeleteTweetReference.accessToken)
-                        .setAccessTokenSecret(twitterDeleteTweetReference.accessTokenSecret);
-                    twitterConsumer = new TwitterConsumer(twitterDeleteTweetReference.consumerKey, twitterDeleteTweetReference.consumerSecret);
+//                    twitterUser     = new TwitterUser(twitterUserDataMock);
+//                    twitterUser
+//                        .setAccessToken(twitterDeleteTweetReference.accessToken)
+//                        .setAccessTokenSecret(twitterDeleteTweetReference.accessTokenSecret);
+//                    twitterConsumer = new TwitterConsumer(twitterDeleteTweetReference.consumerKey, twitterDeleteTweetReference.consumerSecret);
                     oAuthToolsMock = _.extend({}, oAuthTools);
                     oAuthToolsMock.createTimestamp = function () {
                         return twitterDeleteTweetReference.timestamp;
